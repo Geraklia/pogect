@@ -25,6 +25,11 @@
         align-items: center;
         padding: 20px 50px;
         background-color: white;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 100;
       }
 
       .logo {
@@ -71,6 +76,7 @@
       .burger-menu {
         font-size: 24px;
         cursor: pointer;
+        display: none;
       }
 
       /* Головний контент */
@@ -79,6 +85,7 @@
         align-items: center;
         justify-content: space-between;
         padding: 50px;
+        margin-top: 80px;
       }
 
       .text-content {
@@ -192,12 +199,45 @@
       .right-arrow {
         right: 10px;
       }
+
+      /* Мобільна навігація */
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+          flex-direction: column;
+          width: 100%;
+          position: absolute;
+          top: 60px;
+          left: 0;
+          background-color: white;
+          padding: 10px 0;
+        }
+
+        .nav-links.active {
+          display: flex;
+        }
+
+        .burger-menu {
+          display: block;
+        }
+      }
+
+      /* Для великих екранів */
+      @media (min-width: 769px) {
+        .nav-links {
+          display: flex;
+        }
+        .burger-menu {
+          display: block; /* Можна зробити невидимим або видимим */
+        }
+      }
     </style>
   </head>
   <body>
     <!-- Навігація -->
     <header>
       <div class="logo">YOUR LOGO</div>
+      <div class="burger-menu">☰</div>
       <ul class="nav-links">
         <li><a href="#">HOME</a></li>
         <li><a href="#">ABOUT</a></li>
@@ -211,7 +251,6 @@
         </li>
       </ul>
       <button class="sign-in">SIGN IN</button>
-      <div class="burger-menu">☰</div>
     </header>
 
     <!-- Головний контент -->
@@ -230,7 +269,6 @@
           >
         </div>
       </div>
-
       <div class="image-container">
         <img src="imeges/progect_14.1.png" alt="Person with sunglasses" />
         <div class="overlay"></div>
@@ -250,6 +288,17 @@
     <!-- Стрілки навігації -->
     <div class="arrow left-arrow">←</div>
     <div class="arrow right-arrow">→</div>
+
+    <!-- Скрипт для бургер-меню -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const burger = document.querySelector(".burger-menu");
+        const nav = document.querySelector(".nav-links");
+        burger.addEventListener("click", function () {
+          nav.classList.toggle("active");
+        });
+      });
+    </script>
     <section>
       <title>UI Design</title>
       <style>
@@ -319,6 +368,8 @@
           font-size: 160px;
           font-weight: 700;
           color: rgba(128, 0, 255, 0.7);
+          position: relative; /* Додаємо позицію для контролю порядку накладання */
+          z-index: 2; /* Текст UI перед іншими елементами */
         }
 
         .content {
@@ -335,6 +386,7 @@
           top: 20%;
           left: 50%;
           transform: translate(-50%, -20%);
+          z-index: 1; /* Фото за текстом */
         }
 
         .online-courses {
@@ -409,306 +461,460 @@
 
       <!-- 🔹 Основний блок -->
       <section class="hero">
-        <h1><span class="ui">UI</span> DESIGN</h1>
-        <div class="content">
-          <p>EXPLORE.</p>
-          <p>ABOUT.</p>
-        </div>
-        <div class="person">
-          <img src="imeges/progect_14.2.png" alt="Person Jumping" />
-        </div>
-        <div class="online-courses">
-          <p>ONLINE COURSES</p>
-          <p>ONLINE COURSES</p>
-        </div>
-        <div class="scroll-down">
-          <span>↓</span>
+        <title>UI Beginner Guide</title>
+        <style>
+          /* Загальні стилі для скидання відступів та налаштування шрифтів */
+          * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+          }
+          /* Налаштування основного фону */
+          body {
+            background-color: #f4f4f4;
+            color: black;
+          }
+          /* Стилі для шапки сайту */
+          header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: white;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 100;
+          }
+          /* Стилі для логотипу */
+          .logo {
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+          }
+          .logo::before {
+            content: "■";
+            color: black;
+            margin-right: 8px;
+          }
+          /* Меню навігації */
+          .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+          }
+          .nav-links a {
+            text-decoration: none;
+            color: black;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+          }
+          /* Бургер-меню (кнопка для мобільних пристроїв) */
+          .burger-menu {
+            font-size: 24px;
+            cursor: pointer;
+            display: block;
+          }
+          /* Відображення бургер-меню при активному класі */
+          .nav-links.active {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: white;
+            padding: 10px 0;
+          }
+          /* Адаптивність для мобільних пристроїв */
+          @media (max-width: 768px) {
+            .nav-links {
+              display: none;
+            }
+          }
+          /* Головний блок (Hero section) */
+          .hero {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 20px;
+          }
+          .hero h1 {
+            font-size: 60px;
+            font-weight: bold;
+          }
+          /* Вертикальне розташування тексту Explore і About */
+          .hero .content p {
+            position: absolute;
+            font-size: 24px;
+            font-weight: bold;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            top: 50%;
+            transform: translateY(-50%) rotate(180deg);
+          }
+          .hero .content p:first-child {
+            left: 20px;
+          }
+          .hero .content p:last-child {
+            right: 20px;
+          }
+          /* Стилізація зображення */
+          .person img {
+            max-width: 100%;
+            display: block;
+            margin: 0 auto;
+          }
+          /* Стилізація тексту "ONLINE COURSES" */
+          .online-courses p {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+          }
+          /* Анімація прокрутки вниз */
+          .scroll-down span {
+            display: block;
+            font-size: 24px;
+            text-align: center;
+            margin-top: 20px;
+          }
+        </style>
+
+        <!-- Головна секція (Hero) -->
+        <section class="hero">
+          <h1><span class="ui">UI</span> DESIGN</h1>
+          <div class="content">
+            <p>EXPLORE.</p>
+            <p>ABOUT.</p>
+          </div>
+          <div class="person">
+            <img src="imeges/progect_14.2.png" alt="Person Jumping" />
+          </div>
+          <div class="online-courses">
+            <p>ONLINE COURSES</p>
+            <p>ONLINE COURSES</p>
+          </div>
+          <div class="scroll-down">
+            <span>↓</span>
+          </div>
+        </section>
+        <script>
+          // Функціональність бургер-меню
+          document.addEventListener("DOMContentLoaded", function () {
+            const burger = document.querySelector(".burger-menu");
+            const nav = document.querySelector(".nav-links");
+            burger.addEventListener("click", function () {
+              nav.classList.toggle("active");
+            });
+          });
+        </script>
+      </section>
+
+      <section>
+        <title>UI Beginner Guide</title>
+        <style>
+          /* Загальні стилі */
+          * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+          }
+
+          body {
+            background-color: #f4f4f4;
+            color: black;
+            text-align: center;
+            padding: 50px 0;
+          }
+
+          .cards-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+          }
+
+          .card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          }
+
+          .card:nth-child(2) {
+            border: 2px solid #b070ff;
+          }
+
+          .card h2 {
+            font-size: 20px;
+            font-weight: bold;
+          }
+
+          .card p {
+            font-size: 14px;
+            color: #555;
+            margin: 10px 0;
+          }
+
+          .card .underline {
+            width: 40px;
+            height: 3px;
+            background: black;
+            margin: 5px auto 15px;
+          }
+
+          .btn {
+            background: #b070ff;
+            color: white;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+          }
+
+          a {
+            text-decoration: none;
+          }
+        </style>
+        <div class="cards-container">
+          <div class="card">
+            <h2>LEVEL <span>.01</span></h2>
+            <div class="underline"></div>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et.
+            </p>
+            <a href="https://html5book.ru/html-tags/" class="btn">READ MORE</a>
+          </div>
+          <div class="card">
+            <h2>LEVEL <span>.02</span></h2>
+            <div class="underline"></div>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et.
+            </p>
+            <a href="https://css.in.ua/css/properties" class="btn">READ MORE</a>
+          </div>
+          <div class="card">
+            <h2>LEVEL <span>.03</span></h2>
+            <div class="underline"></div>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et.
+            </p>
+            <a
+              href="https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference"
+              class="btn"
+              >READ MORE</a
+            >
+          </div>
         </div>
       </section>
       <section>
-    <title>UI Beginner Guide</title>
-    <style>
-      /* Загальні стилі */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: Arial, sans-serif;
-      }
+        <title>Register Banner</title>
+        <style>
+          * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+          }
 
-      body {
-        background-color: #f4f4f4;
-        color: black;
-        text-align: center;
-        padding: 50px 0;
-      }
+          .banner {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background-color: #a259ff;
+            overflow: hidden;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px;
+            text-align: center;
+          }
 
-      .cards-container {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-      }
+          .banner::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("imegesprogect_14.4.png") center/cover no-repeat;
+            opacity: 0.3;
+            z-index: 0;
+          }
 
-      .card {
-        background: white;
-        border-radius: 15px;
-        padding: 20px;
-        width: 250px;
-        text-align: center;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      }
+          .text-container {
+            position: relative;
+            z-index: 1;
+          }
 
-      .card:nth-child(2) {
-        border: 2px solid #b070ff;
-      }
+          .text-container h1 {
+            font-size: 30px;
+            font-weight: bold;
+          }
 
-      .card h2 {
-        font-size: 20px;
-        font-weight: bold;
-      }
+          .text-container p {
+            font-size: 18px;
+            margin-top: 10px;
+          }
 
-      .card p {
-        font-size: 14px;
-        color: #555;
-        margin: 10px 0;
-      }
+          .btn {
+            display: inline-block;
+            background: black;
+            color: white;
+            padding: 10px 20px;
+            margin-top: 20px;
+            text-decoration: none;
+          }
+        </style>
 
-      .card .underline {
-        width: 40px;
-        height: 3px;
-        background: black;
-        margin: 5px auto 15px;
-      }
+        <div class="banner">
+          <div class="text-container">
+            <h1>REGISTER NOW</h1>
+            <p>AND GET A DISCOUNT.</p>
+            <a href="#" class="btn">LET'S START</a>
+          </div>
+        </div>
+      </section>
+      <section>
+        <title>Black Background Section with Three Columns</title>
+        <style>
+          * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+          }
 
-      .btn {
-        background: #b070ff;
-        color: white;
-        padding: 10px 20px;
-        font-size: 14px;
-        font-weight: bold;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
+          .black-background {
+            background-color: black;
+            color: white;
+            padding: 20px;
+            text-align: center;
+          }
 
-      a {
-        text-decoration: none;
-      }
-    </style>
-    <div class="cards-container">
-      <div class="card">
-        <h2>LEVEL <span>.01</span></h2>
-        <div class="underline"></div>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et.
-        </p>
-        <a href="https://html5book.ru/html-tags/" class="btn">READ MORE</a>
-      </div>
-      <div class="card">
-        <h2>LEVEL <span>.02</span></h2>
-        <div class="underline"></div>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et.
-        </p>
-        <a href="https://css.in.ua/css/properties" class="btn">READ MORE</a>
-      </div>
-      <div class="card">
-        <h2>LEVEL <span>.03</span></h2>
-        <div class="underline"></div>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et.
-        </p>
-        <a href="https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference" class="btn">READ MORE</a>
-      </div>
-    </div>
-            <section>
-              <title>Register Banner</title>
-              <style>
-                * {
-                  margin: 0;
-                  padding: 0;
-                  box-sizing: border-box;
-                  font-family: Arial, sans-serif;
-                }
+          .container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            flex-wrap: wrap;
+          }
 
-                .banner {
-                  position: relative;
-                  width: 100%;
-                  height: 300px;
-                  background-color: #a259ff;
-                  overflow: hidden;
-                  color: white;
-                  text-align: left;
-                  padding: 50px;
-                }
+          .column {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin: 20px;
+            width: 30%; /* Встановлюємо ширину кожної колонки */
+          }
 
-                .text-container {
-                  position: absolute;
-                  top: 50%;
-                  left: 10%;
-                  transform: translateY(-50%);
-                }
+          .column-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+            width: 30%; /* Встановлюємо ширину середньої колонки */
+          }
 
-                .text-container h1 {
-                  font-size: 30px;
-                  font-weight: bold;
-                }
+          .black-background ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+          }
 
-                .text-container p {
-                  font-size: 18px;
-                  margin-top: 10px;
-                }
+          .black-background li {
+            font-size: 18px;
+            margin: 10px 0;
+          }
 
-                .btn {
-                  display: inline-block;
-                  background: black;
-                  color: white;
-                  padding: 10px 20px;
-                  margin-top: 20px;
-                  text-decoration: none;
-                }
-              </style>
+          .black-background a {
+            color: white;
+            text-decoration: none;
+          }
 
-              <div class="banner">
-                <div class="text-container">
-                  <h1>REGISTER NOW</h1>
-                  <p>AND GET A DISCOUNT.</p>
-                  <a href="#" class="btn">LET'S START</a>
-                </div>
+          .black-background a:hover {
+            text-decoration: underline;
+          }
+
+          .newsletter-container {
+            margin-top: 20px;
+            text-align: center;
+          }
+
+          .newsletter-container input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+            width: 60%;
+            max-width: 300px;
+            border: 2px solid #fff;
+            background-color: transparent;
+            color: white;
+          }
+
+          .newsletter-container button {
+            padding: 10px 20px;
+            background-color: #a259ff;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+          }
+
+          .newsletter-container button:hover {
+            background-color: #7f4fd4;
+          }
+        </style>
+        <div class="black-background">
+          <div class="container">
+            <!-- Перша колонка: About до Privacy Policy -->
+            <div class="column">
+              <ul>
+                <li><a href="#">About</a></li>
+                <li><a href="#">History</a></li>
+                <li><a href="#">Our Team</a></li>
+                <li><a href="#">Mission Statement</a></li>
+                <li><a href="#">Terms & Condition</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+              </ul>
+            </div>
+
+            <!-- Друга колонка посередині: What we do до Help -->
+            <div class="column-center">
+              <ul>
+                <li><a href="#">What we do</a></li>
+                <li><a href="#">News and stories</a></li>
+                <li><a href="#">Publications</a></li>
+                <li><a href="#">Take action</a></li>
+                <li><a href="#">Recommendations</a></li>
+                <li><a href="#">Help</a></li>
+              </ul>
+            </div>
+
+            <!-- Третя колонка: Sign Up To Receive Our Newsletter -->
+            <div class="column">
+              <div class="newsletter-container">
+                <p><strong>Sign Up To Receive Our Newsletter</strong></p>
+                <input type="text" placeholder="Enter your email..." />
+                <button>Subscribe</button>
               </div>
-            </section>
-            <section>
-              <title>Black Background Section with Three Columns</title>
-              <style>
-                * {
-                  margin: 0;
-                  padding: 0;
-                  box-sizing: border-box;
-                  font-family: Arial, sans-serif;
-                }
-
-                .black-background {
-                  background-color: black;
-                  color: white;
-                  padding: 20px;
-                  text-align: center;
-                }
-
-                .container {
-                  display: flex;
-                  justify-content: space-between;
-                  width: 100%;
-                  flex-wrap: wrap;
-                }
-
-                .column {
-                  display: flex;
-                  flex-direction: column;
-                  align-items: flex-start;
-                  margin: 20px;
-                  width: 30%; /* Встановлюємо ширину кожної колонки */
-                }
-
-                .column-center {
-                  display: flex;
-                  flex-direction: column;
-                  align-items: center;
-                  margin: 20px;
-                  width: 30%; /* Встановлюємо ширину середньої колонки */
-                }
-
-                .black-background ul {
-                  list-style: none;
-                  margin: 0;
-                  padding: 0;
-                }
-
-                .black-background li {
-                  font-size: 18px;
-                  margin: 10px 0;
-                }
-
-                .black-background a {
-                  color: white;
-                  text-decoration: none;
-                }
-
-                .black-background a:hover {
-                  text-decoration: underline;
-                }
-
-                .newsletter-container {
-                  margin-top: 20px;
-                  text-align: center;
-                }
-
-                .newsletter-container input[type="text"] {
-                  padding: 10px;
-                  font-size: 16px;
-                  margin-top: 10px;
-                  width: 60%;
-                  max-width: 300px;
-                  border: 2px solid #fff;
-                  background-color: transparent;
-                  color: white;
-                }
-
-                .newsletter-container button {
-                  padding: 10px 20px;
-                  background-color: #a259ff;
-                  border: none;
-                  color: white;
-                  font-size: 16px;
-                  cursor: pointer;
-                  margin-top: 10px;
-                }
-
-                .newsletter-container button:hover {
-                  background-color: #7f4fd4;
-                }
-              </style>
-              <div class="black-background">
-                <div class="container">
-                  <!-- Перша колонка: About до Privacy Policy -->
-                  <div class="column">
-                    <ul>
-                      <li><a href="#">About</a></li>
-                      <li><a href="#">History</a></li>
-                      <li><a href="#">Our Team</a></li>
-                      <li><a href="#">Mission Statement</a></li>
-                      <li><a href="#">Terms & Condition</a></li>
-                      <li><a href="#">Privacy Policy</a></li>
-                    </ul>
-                  </div>
-
-                  <!-- Друга колонка посередині: What we do до Help -->
-                  <div class="column-center">
-                    <ul>
-                      <li><a href="#">What we do</a></li>
-                      <li><a href="#">News and stories</a></li>
-                      <li><a href="#">Publications</a></li>
-                      <li><a href="#">Take action</a></li>
-                      <li><a href="#">Recommendations</a></li>
-                      <li><a href="#">Help</a></li>
-                    </ul>
-                  </div>
-
-                  <!-- Третя колонка: Sign Up To Receive Our Newsletter -->
-                  <div class="column">
-                    <div class="newsletter-container">
-                      <p><strong>Sign Up To Receive Our Newsletter</strong></p>
-                      <input type="text" placeholder="Enter your email..." />
-                      <button>Subscribe</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </body>
-        </html>
+            </div>
+          </div>
+        </div>
       </section>
     </section>
   </body>
